@@ -1,0 +1,10 @@
+<div class='mx-10 mt-10'>
+  <%= render "shared/page_heading", content: 'Edit Post'%>
+  <%= render "form", post: @post %>
+  <div class='flex'>
+    <%= render "shared/blue_button", content: (link_to "Show this post", group_post_url(@post))%>
+    <%= render "shared/blue_button", content: (link_to 'Back to group', group_path)%>
+  </div>
+</div>
+
+

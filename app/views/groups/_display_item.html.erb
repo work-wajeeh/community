@@ -1,0 +1,12 @@
+<div class='relative p-4'>
+  <div class='w-[800px] rounded-lg bg-white text-[0.8125rem] leading-5 text-slate-900 shadow-xl shadow-black/5 ring-1 ring-slate-700/10'>
+    <div class='p-4'>
+      <span class='text-base'>
+        <%= link_to group.name, group %>
+      </span>
+        <i class='<%= access_icon(group)%>' aria-hidden="true"></i>
+      <%= group_relation_badge(group, current_user)%>
+      <div class='mt-1 text-slate-600'></div>
+    </div>
+  </div>
+</div>

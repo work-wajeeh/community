@@ -1,0 +1,22 @@
+<p style="color: green"><%= notice %></p>
+<div class='p-10'>
+  <%= render "shared/page_heading", content: (link_to @group.name, @group)%>
+  <p class='pt-10 text-xl font-bold'>Posts</p>
+  <% is_creator = @group.creator?(current_user)%>
+  <div id="posts">
+    <%@posts.each do |post|%>
+      <%can_delete = is_creator || post.author_id == current_user.id%>
+      <%= render "display_item", {post: post, can_delete: can_delete, link: (link_to post.title, [post.group, post])}%>
+    <%end%>
+  </div>
+
+  <div class='flex gap-3 p-4'>
+    <div class='pointer-events-auto rounded-md py-2 px-4 text-center text-base shadow-base ring-1 ring-slate-700/10 hover:bg-slate-50'>
+      <%= link_to 'View Group', @group %>
+    </div>
+    <div class='pointer-events-auto rounded-md bg-indigo-600 py-2 px-3 text-[0.8125rem] font-semibold leading-5 text-white hover:bg-indigo-500'>
+      <%= link_to "New post", new_group_post_path(@group) %>
+    </div>
+  </div>
+</div>
+

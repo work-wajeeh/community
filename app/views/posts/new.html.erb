@@ -1,0 +1,11 @@
+<div class='mx-10 mt-10'>
+  <div class='ml-10'>
+    <%= render "shared/page_heading", content: 'New Post'%>
+  </div>
+
+  <%= render "form", post: @post %>
+
+  <div class='float-left ml-10'>
+    <%= render "shared/blue_button", content: (link_to 'Back to group', @group)%>
+  </div>
+</div>

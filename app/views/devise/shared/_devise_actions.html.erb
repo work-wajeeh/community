@@ -1,0 +1,9 @@
+<nav class="bg-slate-200 border-gray-500 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
+  <%if user_signed_in?%>
+    <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
+      <span class="text-base font-semibold whitespace-nowrap"><%= current_user.email.split('@').first.titleize%></span>
+      <%= render "shared/blue_button", content: (link_to "Log out", destroy_user_session_path, :method => :delete)%>
+    </div>
+    <input id='cur_user_id' type='hidden' value="<%= current_user.id%>">
+  <%end%>
+</nav>

@@ -1,0 +1,60 @@
+<p style="color: green"><%= notice %></p>
+
+<div class="grid grid-cols-3 gap-4 ">
+  <div class="col-span-2">
+    <div class='p-10 bg-white leading-5 text-slate-900 shadow-black/5 ring-slate-700/10'>
+      <%= render "shared/page_heading", content: (link_to @group.name, @group)%>
+      <i class='<%= access_icon(@group)%>' aria-hidden="true"></i>
+      <%= group_relation_badge(@group, current_user)%>
+
+      <%if @group.posts.length > 0%>
+        <p class='px-5 py-8 text-xl font-bold'>Posts</p>
+      <%else%>
+        <p class='py-10 px-5 text-semibold'>No posts in this group yet</p>
+      <%end%>
+      <% is_creator = @group.creator?(current_user)%>
+      <div id="posts">
+        <%@group.posts.each do |post|%>
+          <%can_delete = is_creator || post.author_id == current_user.id%>
+          <%= render "posts/display_item", {post: post, can_delete: can_delete, link: (link_to post.title, [post.group, post])}%>
+        <%end%>
+      </div>
+
+      <div class='flex gap-3 p-4'>
+        <%= render "shared/blue_button", content: (link_to "Back to groups", groups_path)%>
+        <%= render "shared/blue_button", content: (link_to "New post", new_group_post_path(@group))%>
+      </div>
+    </div>
+  </div>
+  <%if @group.creator?(current_user)%>
+    <div class='h-32 mr-10'>
+      <p class='px-5 py-8 mt-20 text-xl font-bold'>Join Requests</p>
+      <div class="mt-3 h-12 min-h-full rounded-lg bg-slate-100 text-[0.8125rem] shadow-xl ring-1 ring-slate-700/10">
+        <%requests = @group.user_groups.where(status: 'pending')%>
+        <%if requests.length > 0%>
+          <%requests.each do |membership|%>
+            <div class='relative p-4'>
+              <div class='rounded-lg bg-white text-[0.8125rem] leading-5 text-slate-900 shadow-xl shadow-black/5 ring-1 ring-slate-700/10'>
+                <div class='p-4'>
+                  <div class='w-[200px] text-base'>
+                    <div class='truncate'><%= membership.user.email%></div>
+                  </div>
+                  <div class='inline-flex float-right -mt-8'>
+                    <%= render "shared/blue_button", content: (link_to "Accept", groups_path)%>
+                    <%= render "shared/red_button", content: (link_to "Reject", groups_path)%>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <%end%>
+        <%else%>
+          <div class='py-10 rounded-lg text-[0.8125rem] leading-5 text-slate-900 shadow-xl shadow-black/5 ring-1 ring-slate-700/10'>
+            <span class='font-semibold p-4'>No Requests Pending</span>
+          </div>
+        <%end%>
+      </div>
+    </div>
+  <%end%>
+</div>
+
+

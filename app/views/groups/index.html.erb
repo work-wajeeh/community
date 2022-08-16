@@ -1,0 +1,13 @@
+<p style="color: green"><%= notice %></p>
+<div id='group-index' class='m-10'>
+  <%= render "shared/page_heading", content: 'Groups'%>
+
+  <div id="groups">
+    <% @groups.each do |group| %>
+      <%= render "display_item", group: group%>
+    <% end %>
+  </div>
+  <div class='float-right m-20'>
+    <%= render "shared/blue_button", content: (link_to "Create a New Group", new_group_path)%>
+  </div>
+</div>

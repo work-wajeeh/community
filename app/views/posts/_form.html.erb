@@ -1,0 +1,27 @@
+<%= form_with(model: [@group, post]) do |form| %>
+  <% if post.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
+      <ul>
+        <% post.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class='m-10 w-[600px]'>
+    <div class='my-3'>
+      <%= form.label :title, class: 'block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300' %>
+      <%= form.text_field :title, class: 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500' %>
+    </div>
+
+    <div class='my-3'>
+      <%= form.label :content, class: 'block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300' %>
+      <%= form.text_field :content, class: 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500' %>
+    </div>
+
+    <div class='float-right'>
+      <%= render "shared/blue_button", content: (form.submit)%>
+    </div>
+  </div>
+<% end %>

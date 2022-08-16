@@ -1,0 +1,31 @@
+<div class="space-y-4 my-5">
+  <div class="flex">
+    <div class="flex-1 bg-gray-100 rounded-lg px-4 py-2 sm:px-6 sm:py-4 leading-relaxed">
+      <strong><%= @comment.commentor.email.split('@').first %></strong> <span class="text-xs text-gray-400"><%= time_format(@comment.updated_at) %></span>
+      <p class="text-xs sm:text-sm"><%= @comment.content%></p>
+    </div>
+  </div>
+
+<h4 class="m-5 uppercase tracking-wide text-gray-400 font-bold text-xs">Replies</h4>
+
+  <%@comment.replies.each do |reply|%>
+    <div class="flex">
+      <div class="flex-shrink-0 m-5 text-3xl">
+        <i class="fa fa-user" aria-hidden="true"></i>
+      </div>
+      <div class="flex-1 bg-gray-100 rounded-lg px-4 py-2 sm:px-6 sm:py-4 leading-relaxed">
+        <strong><%= reply.commentor.email.split('@').first %></strong> <span class="text-xs text-gray-400"><%= time_format(reply.updated_at) %></span>
+        <p class="text-xs sm:text-sm"><%= reply.content%></p>
+      </div>
+    </div>
+  <%end%>
+  <div class="flex">
+    <div class="flex-shrink-0 m-5 text-3xl">
+      <i class="fa fa-user"></i>
+    </div>
+    <div class="flex-1 rounded-lg">
+      <%= render "comments/form", comment: @comment.replies.new, label: 'Reply', parent_id: @comment.id %>
+    </div>
+  </div>
+</div>
+<hr>
