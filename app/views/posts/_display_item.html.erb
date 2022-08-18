@@ -1,7 +1,7 @@
 <div class=' p-4'>
   <div class='rounded-lg bg-white text-[0.8125rem] leading-5 text-slate-900 shadow-xl shadow-black/5 ring-1 ring-slate-700/10'>
-    <div class='h-28 grid grid-cols-5'>
-      <div class='max-h-full col-span-3 p-4'>
+    <div class='h-fit grid grid-cols-5'>
+      <div class=' max-h-full col-span-3 p-4'>
         <div class='text-base'>
           <span><%= link%><span>
         </div>
@@ -9,7 +9,7 @@
       </div>
       <% if can_delete%>
         <div class='mr-3 col-span-2'>
-          <div class='flex float-right col-span-2 mt-8'>
+          <div class='flex float-right col-span-2 py-8'>
             <%= render "shared/yellow_button", content: (link_to "Edit this post", edit_group_post_path(post.group, post))%>
             <%= render "shared/red_button", content: (link_to 'Delete post', group_path(post.group.id), method: :delete)%>
           </div>
