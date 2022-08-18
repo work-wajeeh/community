@@ -40,8 +40,8 @@
                     <div class='truncate'><%= membership.user.email%></div>
                   </div>
                   <div class='inline-flex float-right -mt-8'>
-                    <%= render "shared/blue_button", content: (link_to "Accept", groups_path)%>
-                    <%= render "shared/red_button", content: (link_to "Reject", groups_path)%>
+                    <%= render "shared/blue_button", content: (link_to "Accept", join_group_path(membership.group, :status => 'accept', :membership_id => membership.id))%>
+                    <%= render "shared/red_button", content: (link_to "Reject", join_group_path(membership.group, :status => 'reject',  :membership_id => membership.id))%>
                   </div>
                 </div>
               </div>

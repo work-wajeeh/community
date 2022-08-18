@@ -52,7 +52,11 @@ class GroupsController < ApplicationController
   end
 
   def join
-    joined = @group.add_user(current_user)
+    if params["membership_id"].present?
+      joined = @group.update_membership(params["membership_id"], params["status"])
+    else
+      joined = @group.add_user(current_user)
+    end
     respond_to do |format|
       if joined
         format.html { redirect_to group_url(@group), notice: "You have joined the group successfully." }

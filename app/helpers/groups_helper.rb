@@ -25,7 +25,7 @@ module GroupsHelper
     status = ''
     if membership.present?
       membership_message = {"joined"=>'Joined', "pending"=>'Requested to Join', "removed" => "Removed", "rejected" => "Rejected"}
-      badge_bg = {"joined"=>'bg-green-400', "pending"=>'bg-yellow-500', "removed" => "bg-gray-800", "rejected" => "bg-gray-800"}
+      badge_bg = {"joined"=>'bg-green-400', "pending"=>'bg-yellow-500', "removed" => "bg-red-500", "rejected" => "bg-red-500"}
       status = (membership_message[membership.status]).to_s
       badge_class = badge_class + ' ' + badge_bg[membership.status].to_s
     else

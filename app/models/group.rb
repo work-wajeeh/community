@@ -21,6 +21,14 @@ class Group < ApplicationRecord
     end
   end
 
+  def update_membership membership_id, status
+    operation = {
+      'accept' => 'joined!',
+      'reject' => 'rejected!'
+    }
+    user_groups.find_by_id(membership_id)&.send(operation[status.to_s])
+  end
+
   def approved_member? user
     self.user_groups.find_by(user_id: user.id)&.joined?
   end
