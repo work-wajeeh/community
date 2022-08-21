@@ -3,7 +3,7 @@
   <%= render "form", post: @post %>
   <div class='flex'>
     <%= render "shared/blue_button", content: (link_to "Show this post", group_post_url(@post))%>
-    <%= render "shared/blue_button", content: (link_to 'Back to group', group_path)%>
+    <%= render "shared/blue_button", content: (link_to 'Back to group', group_path(@post.group_id))%>
   </div>
 </div>
 
