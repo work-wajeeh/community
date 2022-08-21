@@ -10,7 +10,7 @@
 
   <%@comment.replies.each do |reply|%>
     <div class="flex">
-      <div class="flex-shrink-0 m-5 text-3xl">
+      <div class="flex-shrink-0 m-5 text-3xl" style="font-size: 24px; margin-right: 20px;">
         <i class="fa fa-user" aria-hidden="true"></i>
       </div>
       <div class="flex-1 bg-gray-100 rounded-lg px-4 py-2 sm:px-6 sm:py-4 leading-relaxed">
@@ -20,10 +20,7 @@
     </div>
   <%end%>
   <div class="flex">
-    <div class="flex-shrink-0 m-5 text-3xl">
-      <i class="fa fa-user"></i>
-    </div>
-    <div class="flex-1 rounded-lg">
+    <div class="flex-1 rounded-lg" style="padding-bottom: 20px; padding-left: 37px;">
       <%= render "comments/form", comment: @comment.replies.new, label: 'Reply', parent_id: @comment.id %>
     </div>
   </div>

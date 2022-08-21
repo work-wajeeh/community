@@ -1,10 +1,41 @@
 <div class='mx-10 mt-10'>
   <%= render "shared/page_heading", content: 'Edit Post'%>
-  <%= render "form", post: @post %>
-  <div class='flex'>
-    <%= render "shared/blue_button", content: (link_to "Show this post", group_post_url(@post))%>
-    <%= render "shared/blue_button", content: (link_to 'Back to group', group_path(@post.group_id))%>
-  </div>
+
+  <%= turbo_frame_tag dom_id(@post) do %>
+    <div id='edit-post-form' class='mt-20 antialiased mx-auto max-w-screen-sm'>
+      <%= form_with(model: [@group, @post]) do |form| %>
+        <% if @post.errors.any? %>
+          <div style="color: red">
+            <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
+            <ul>
+              <% @post.errors.each do |error| %>
+                <li><%= error.full_message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+        <div class='m-10 w-[600px]'>
+          <div class='my-3'>
+            <%= form.label :title, class: 'block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300' %>
+            <%= form.text_field :title, class: 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500' %>
+          </div>
+
+          <div class='my-3'>
+            <%= form.label :content, class: 'block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300' %>
+            <%= form.rich_text_area :content, data: { controller: "mentions", target: "mentions.field" }, class: 'customized-min-height bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500' %>
+          </div>
+
+          <div class='float-right'>
+            <%= render "shared/blue_button", content: (form.submit)%>
+          </div>
+
+          <div class='float-right'>
+            <%= render "shared/yellow_button", content: (link_to "Cancel", group_post_url(@post))%>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
 </div>
 
 

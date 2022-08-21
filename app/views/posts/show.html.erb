@@ -1,31 +1,37 @@
 <p style="color: green"><%= notice %></p>
 
-<div class="mt-20 antialiased mx-auto max-w-screen-sm">
-  <div class="space-y-4">
-    <div class="flex">
-      <div class="flex-1 border rounded-lg px-4 py-2 sm:px-6 sm:py-4 leading-relaxed">
-        <strong> <%= @post.author.email.split('@').first %> </strong> <span class="text-xs text-gray-400"> <%= time_format(@post.updated_at) %></span>
-        <p class="my-4 text-sm">
-          <%=@post.content%>
-        </p>
-        <hr>
-        <h4 class="mt-5 uppercase tracking-wide text-gray-400 font-bold text-xs">Comments</h4>
-          <%= render(CommentComponent.with_collection(@post.comments.where(parent_id: nil))) %>
-        <%@post.comments.where(parent_id: nil).each do |comment|%>
-        <%end%>
-        <div class='my-7'>
-          <%= render "comments/form", comment: @comment, label: 'Comment', parent_id: nil %>
+  <div class="mt-20 antialiased mx-auto max-w-screen-sm">
+    <%= turbo_frame_tag dom_id(@post) do %>
+      <div class="space-y-4">
+        <div class="flex">
+          <div class="flex-1 border rounded-lg px-4 py-2 sm:px-6 sm:py-4 leading-relaxed">
+            <strong> <%= @post.title %> </strong> by <%= @post.author.email.split('@').first%><span class="text-xs text-gray-400"> <%= time_format(@post.updated_at) %></span>
+            <p class="my-4 text-sm">
+                <%=@post.content%>
+            </p>
+            <div class='flex my-4 float-r'>
+              <%if @post.author == current_user || @post.group.creator?(current_user)%>
+                <%= render "shared/yellow_button", content: (link_to 'Edit', edit_group_post_path([@post.group, @post]))%>
+              <%end%>
+            </div>
+            <hr>
+            <h4 class="mt-5 uppercase tracking-wide text-gray-400 font-bold text-xs" style="margin-bottom: 10px;">Comments</h4>
+            <%= render(CommentComponent.with_collection(@post.comments.where(parent_id: nil))) %>
+            <div class='my-7'>
+              <%= render "comments/form", comment: @comment, label: 'Comment', parent_id: nil %>
+            </div>
+          </div>
         </div>
       </div>
+    <% end %>
+    <div class='flex my-10 float-left'>
+      <%= render "shared/blue_button", content: (link_to 'Back to group', group_path(@post.group_id))%>
+      <%if @post.author == current_user || @post.group.creator?(current_user)%>
+        <%= render "shared/red_button", content: (link_to 'Delete post', group_post_path(@post), data:{'turbo-method': :delete})%>
+      <%end%>
     </div>
   </div>
-  <div class='flex my-10 float-right'>
-    <%= render "shared/blue_button", content: (link_to 'Back to group', group_path(@post.group_id))%>
-    <%if @post.author == current_user || @post.group.creator?(current_user)%>
-      <%= render "shared/yellow_button", content: (link_to "Edit this post", edit_group_post_path(@post))%>
-      <%= render "shared/red_button", content: (link_to 'Delete post', group_post_path(@post), data:{'turbo-method': :delete})%>
-    <%end%>
-  </div>
-</div>
+
+
 
 
