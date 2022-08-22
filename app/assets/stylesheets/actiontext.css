@@ -60,3 +60,18 @@ trix-editor  .customized-min-height {
 .mention{
   color: blue;
 }
+
+
+.tribute-container ul{
+  border: 1px solid #000;
+  border-radius: 5px;
+  margin-top: 5px;
+  background-color: white;
+}
+
+.tribute-container ul li{
+  padding: 5px;
+}
+.tribute-container ul li:hover {
+  background-color: lightgray;
+}
